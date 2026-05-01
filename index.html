@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website-ka Riyaaq Hassan</title>
+    
+    <style>
+        /* Qurxinta guud */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f2f5;
+            transition: all 0.5s ease;
+        }
+
+        body.dark-mode {
+            background-color: #121212 !important;
+            color: white;
+        }
+
+        /* Qaybta Sare iyo Hoose */
+        .header, .footer {
+            position: fixed;
+            width: 100%;
+            background: #2c3e50;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        .header { top: 0; }
+        .footer { bottom: 0; }
+
+        /* Card-ka Dhexe */
+        .main-card {
+            background: white;
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 650px;
+            margin: 120px 0;
+            transition: 0.3s;
+        }
+
+        body.dark-mode .main-card {
+            background-color: #1e1e1e;
+            color: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        /* Sawirka */
+        .plane-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Qoraalada iyo Inputs */
+        h1 { font-size: 35px; margin-bottom: 15px; }
+        p { font-size: 18px; color: #555; }
+        body.dark-mode p { color: #ccc; }
+
+        .input-field {
+            width: 100%;
+            padding: 18px;
+            margin: 12px 0;
+            border: 3px solid #ddd;
+            border-radius: 18px;
+            font-size: 18px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field:focus { border-color: #e67e22; }
+
+        /* Badhanka weyn */
+        .big-button {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 22px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+            transition: 0.3s;
+        }
+
+        .big-button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(39, 174, 96, 0.5); }
+
+        .live-clock {
+            font-size: 30px;
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 20px;
+        }
+
+        /* BARO-BULSHO STYLE */
+        .social-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .info-box {
+            padding: 18px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tiktok { background-color: #000000; }
+        .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .whatsapp { background-color: #25D366; }
+
+        .user-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 15px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .dropbtn {
+            background-color: #e67e22;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a {
+            color: #333;
+            padding: 15px;
+            text-decoration: none;
+            display: block;
+        }
+
+        #secretDashboard { display: none; }
+    </style>
+</head>
+<body onload="updateClock()">
+
+    <!-- QAYBTA SARE -->
+    <div class="header">
+        <div class="dropdown">
+            <button class="dropbtn">Midabka Sare ▾</button>
+            <div class="dropdown-content">
+                <a onclick="beddel('#3498db')">Buluug Casri ah</a>
+                <a onclick="beddel('#e74c3c')">Casaan Kulul</a>
+                <a onclick="beddel('#ffffff')">Caddaan Nadif ah</a>
+            </div>
+        </div>
+        <button class="dropbtn" style="background-color: #444;" onclick="toggleDark()">Dark Mode 🌙</button>
+    </div>
+
+    <!-- BOGGA LOGIN-KA -->
+    <div id="loginSection" class="main-card">
+        <div id="clock" class="live-clock">00:00:00</div>
+        <img src="https://images.unsplash.com/photo-1464039397811-476f652a343b?q=80&w=800" alt="Diyaarad" class="plane-img">
+        <h1>Gudogal Riyaaq Hassan</h1>
+        <p>Gali macluumaadkaaga si aad u gasho Dashboard-ka.</p>
+        
+        <input type="text" id="userName" class="input-field" placeholder="Username">
+        <input type="password" id="password" class="input-field" placeholder="Password">
+        
+        <button class="big-button" onclick="checkLogin()">GUDO GAL!</button>
+        <p id="loginError" style="color: #e74c3c; font-weight: bold; margin-top: 20px; display: none; font-size: 18px;"></p>
+    </div>
+
+    <!-- QAYBTA QARSOON (DASHBOARD) -->
+    <div id="secretDashboard" class="main-card">
+        <h1 style="color: #27ae60;">Waad ku Guulaysatay Riyaaq!</h1>
+        <p>Halkan waa macluumaadka barahayga bulshada:</p>
+
+        <div class="social-info">
+            <div class="info-box tiktok">
+                <span>🎵 TikTok:</span>
+                <span class="user-tag">@amaano64</span>
+            </div>
+            <div class="info-box instagram">
+                <span>📸 Instagram:</span>
+                <span class="user-tag">@itz_me_riyaaq</span>
+            </div>
+            <div class="info-box whatsapp">
+                <span>💬 WhatsApp:</span>
+                <span class="user-tag">+252 907948652</span>
+            </div>
+        </div>
+
+        <br><br>
+        <button class="dropbtn" style="background-color: #c0392b; width: 100%;" onclick="location.reload()">Ka bax (Logout)</button>
+    </div>
+
+    <!-- QAYBTA HOOSE -->
+    <div class="footer">
+        <div class="dropdown">
+            <button class="dropbtn">Midabka Hoose ▾</button>
+            <div class="dropdown-content" style="bottom: 100%;">
+                <a onclick="beddel('#9b59b6')">Purple</a>
+                <a onclick="beddel('#f1c40f')">Huruud</a>
+                <a onclick="beddel('#2ecc71')">Cagaar</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('en-GB');
+            setTimeout(updateClock, 1000);
+        }
+
+        function beddel(midab) {
+            document.body.classList.remove("dark-mode");
+            document.body.style.backgroundColor = midab;
+        }
+
+        function toggleDark() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function checkLogin() {
+            const user = document.getElementById('userName').value;
+            const pass = document.getElementById('password').value;
+            const errorElement = document.getElementById('loginError');
+            
+            const validUser = "itz_me_riyaaq";
+            const validPass = "7948652";
+
+            if (user === validUser && pass === validPass) {
+                document.getElementById('loginSection').style.display = "none";
+                document.getElementById('secretDashboard').style.display = "block";
+                errorElement.style.display = "none";
+            } 
+            else if (user !== validUser && pass !== validPass) {
+                errorElement.textContent = "waa kaa khalad usernameka iyo passwordka fadlan ku celi";
+                errorElement.style.display = "block";
+            }
+            else if (user !== validUser) {
+                errorElement.textContent = "waa kaa khalad usernamekaa";
+                errorElement.style.display = "block";
+            } 
+            else {
+                errorElement.textContent = "waa kaa khalad passwordka fadlan ku celi";
+                errorElement.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
